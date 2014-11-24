@@ -10,7 +10,7 @@ framework_version="2.0"
 
 # app description
 name="crond"
-version="1.20.2"
+version="1.14.2"
 description="Crond scheduler service"
 
 # framework-mandated variables
