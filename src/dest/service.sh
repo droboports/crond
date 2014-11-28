@@ -72,7 +72,7 @@ _service_start() {
 }
 
 _service_stop() {
-  /sbin/start-stop-daemon -K -v -x "${daemon}" -p "${pidfile}"
+  if ! /sbin/start-stop-daemon -K -x "${daemon}" -p "${pidfile}" -v; then echo "${name} is not running" >&3; fi
 }
 
 _service_restart() {
