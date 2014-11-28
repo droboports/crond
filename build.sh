@@ -32,11 +32,6 @@ export CPPFLAGS="-I${DEPS}/include"
 export LDFLAGS="${LDFLAGS:-} -Wl,-rpath,${DEST}/lib -L${DEST}/lib"
 alias make="make -j8 V=1 VERBOSE=1"
 
-### BUILD ###
-_build() {
-  _package
-}
-
 # Create the DroboApp tgz file.
 _create_tgz() {
   local appname="$(basename ${PWD})"
@@ -71,6 +66,11 @@ _dist_clean() {
   _clean
   rm -v -f logfile*
   rm -v -fr download/*
+}
+
+### BUILD ###
+_build() {
+  _package
 }
 
 case "${1:-}" in
