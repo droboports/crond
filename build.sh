@@ -21,7 +21,7 @@ exec 1> >(tee -a "${logfile}")
 # redirect errors to stdout
 exec 2> >(tee -a "${logfile}" >&2)
 
-### environment variables ###
+### environment setup ###
 source crosscompile.sh
 export NAME="crond"
 export DEST="/mnt/DroboFS/Shares/DroboApps/${NAME}"
@@ -37,6 +37,7 @@ _build() {
   _package
 }
 
+# Create the DroboApp tgz file.
 _create_tgz() {
   local appname="$(basename ${PWD})"
   local appfile="${PWD}/${appname}.tgz"
@@ -50,6 +51,7 @@ _create_tgz() {
   popd
 }
 
+# Package the DroboApp
 _package() {
   mkdir -p "${DEST}"
   cp -avfR src/dest/* "${DEST}"/
@@ -57,12 +59,14 @@ _package() {
   _create_tgz
 }
 
+# Remove all compiled files.
 _clean() {
   rm -v -fr "${DEPS}"
   rm -v -fr "${DEST}"
   rm -v -fr target/*
 }
 
+# Removes all files created during the build.
 _dist_clean() {
   _clean
   rm -v -f logfile*
